@@ -11,6 +11,7 @@ TIME<-3
 
 # load libraries
 library(survival)
+if_else<-dplyr::if_else
 
 # load functions
 source('impute dates.r')
@@ -40,8 +41,8 @@ ii<-define_survival_variables(ii)
 ii<-subset(ii,!data_flag)
 ii<-subset(ii,!tb_censor_0)
 ii<-subset(ii,!(dead_0|move_0))
-ii<-subset(ii,resident_0)
 ii<-subset(ii,adult_0)
+ii<-subset(ii,resident_0)
 ii<-subset(ii,!tb_0)
 ii<-subset(ii,hiv_0|is.na(hiv_0))
 ii<-subset(ii,stable_0)
@@ -68,6 +69,8 @@ s2('pri_cd4_1',CLUST.ADJ=c('U','tb_incidence_0','hiv_prev_0'),SURVIVAL=TRUE)
 load('prepared data.RData')
 
 # annual: define risk periods
+ii$start<-ii$tb_risk_start
+ii$end<-ii$tb_risk_end
 source('risk periods for annual rates.r')
 
 # annual: impute missing dates
@@ -105,6 +108,40 @@ OUTCOME<-paste(c('neg','pos'),rep(1:3,each=2),sep='')
 invisible(lapply(OUTCOME,s2,CLUST.ADJ=c('U','tb_incidence_0','hiv_prev_0'),
                  SURVIVAL=FALSE))
 
+# annual, crude: load data
+load('prepared data.RData')
+
+# annual, crude: define risk periods
+ii$start<-ii$tb_risk_start
+ii$end<-ii$tb_risk_end
+source('risk periods for annual rates.r')
+
+# annual, crude: impute missing dates
+ii<-impute_dates(c('tb.end','da.end','om.end'))
+
+# annual, crude: define survival variables
+ovar<-c('tb')
+cvar<-c('da','om')
+ii<-define_survival_variables(ii)
+
+# annual, crude: define population
+ii<-subset(ii,!data_flag)
+ii<-subset(ii,!tb_censor_0)
+ii<-subset(ii,!(dead_0|move_0))
+ii<-subset(ii,adult_0)
+ii<-subset(ii,resident_0)
+ii<-subset(ii,!tb_0)
+
+# annual, crude: rates
+negtxt<-yy(TRUE,'intervention',subset(ii,!hiv_0),'y')
+negcon<-yy(FALSE,'intervention',subset(ii,!hiv_0),'y')
+postxt<-yy(TRUE,'intervention',subset(ii,hiv_0),'y')
+poscon<-yy(FALSE,'intervention',subset(ii,hiv_0),'y')
+
 # output estimates
+tt<-rbind(negtxt,negcon,postxt,poscon)
+tt$hiv<-c('neg','neg','pos','pos')
+tt<-tt[,c('hiv','intervention','y1','y2','y3')]
+write.csv(tt,'tuberculosis crude incidence rates.csv',row.names=FALSE)
 tt<-rbind(pri,pri_cd4_1,neg1,neg2,neg3,pos1,pos2,pos3)
-write.csv(tt,'tuberculosis results.csv',row.names=FALSE)
+write.csv(tt,'tuberculosis intervention effects.csv',row.names=FALSE)
