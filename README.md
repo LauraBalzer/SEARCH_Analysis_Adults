@@ -32,7 +32,7 @@ Also includes code for descriptive analyses described in the statistical analysi
 - Annual HIV Incidence Cohorts in Intervention Arm.Rmd
 - changes in Circumcision.Rmd
 
-#——--
+
 Helper functions used in analyses for HIV incidence, NCD, suppression/coverage: 
 - Stage1_Functions 
 
