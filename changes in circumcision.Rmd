@@ -1,0 +1,41 @@
+---
+title: "Changes in Circumcision"
+author: "Joshua Schwab"
+date: "8/31/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, rows.print=50)
+library(data.table)
+```
+
+* population for ALL outputs: men, resident_0
+
+```{r}
+date()
+load("outputs-withIntOnly.RData")
+outputs[, region_name := factor(region_name, levels = levels(region_name)[c(2, 3, 1)])]
+outputs <- outputs[resident_0 & sex_0 & !is.na(circumcision_0) & age_0 >= 15]
+```
+
+* outcome: age_0 >= 15, traditional/medical circumcision at baseline
+* population: nonmissing circumcision at baseline
+```{r}
+outputs[age_0 %in% 12:14, age_cat := "age12to14"]
+outputs[age_0 %in% 15:24, age_cat := "age15to24"]
+outputs[age_0 %in% 25:34, age_cat := "age25to34"]
+outputs[age_0 %in% 35:44, age_cat := "age35to44"]
+outputs[age_0 %in% 45:54, age_cat := "age45to54"]
+outputs[age_0 %in% 55:120, age_cat := "age55plus"]
+
+outputs[, .(all_denom=.N), keyby="region_name"]
+outputs[, .(N_trad = sum(circumcision_0 %in% 1), circ_0_trad = mean(circumcision_0 %in% 1),
+          N_med = sum(circumcision_0 %in% 2), circ_0_med = mean(circumcision_0 %in% 2)
+          ), 
+        keyby=c("region_name")]
+outputs[, .(N_trad = sum(circumcision_0 %in% 1), circ_0_trad = mean(circumcision_0 %in% 1),
+          N_med = sum(circumcision_0 %in% 2), circ_0_med = mean(circumcision_0 %in% 2)
+          ), 
+        keyby=c("region_name", "age_cat")]
+```

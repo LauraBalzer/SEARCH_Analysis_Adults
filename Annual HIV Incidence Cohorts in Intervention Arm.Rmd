@@ -1,0 +1,22 @@
+---
+title: "Annual HIV Incidence Cohorts in Intervention Arm"
+author: "Joshua Schwab"
+date: "10/9/2018"
+output: html_document
+---
+  
+  
+  
+```{r}
+library(data.table)
+load("outputs-withIntOnly.RData")
+outputs <- outputs[intervention == T]
+outputs[, move_3 := outmigrate_3]
+for (tt in 0:2) {
+  print(c(tt,
+          outputs[!get(paste0("hiv_", tt)), .N],
+          outputs[!get(paste0("dead_", tt + 1)) & !get(paste0("move_", tt + 1)), .N],
+          outputs[!is.na(get(paste0("hiv_", tt + 1))), .N]))
+}
+
+```

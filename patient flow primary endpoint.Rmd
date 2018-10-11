@@ -1,0 +1,21 @@
+---
+title: "patient flow primary endpoint"
+author: "Joshua Schwab"
+date: "10/9/2018"
+output: html_document
+---
+
+
+
+```{r}
+library(data.table)
+load("outputs-withIntOnly.RData")
+
+outputs[resident_0 & adult_0, .N]
+outputs[resident_0 & adult_0, .N, by="intervention"]
+outputs[resident_0 & adult_0, .N, by=c("intervention", "stable_0")]
+outputs[resident_0 & adult_0 & stable_0 & is.na(hiv_0), .N, by=c("intervention")]
+outputs[resident_0 & adult_0 & stable_0 & !is.na(hiv_0) & (BCfirst_indicator | BLpos_indicator | BLcare_indicator | BLposTB_indicator | hiv_0 | oic_member == F), .N, by=c("intervention")]   
+
+```
+
