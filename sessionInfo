@@ -1,0 +1,102 @@
+## packages used by Yea-Hung's code and for outcomes:Mortality, Tuberculosis
+
+R version 3.5.2 (2018-12-20)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Sierra 10.12.6
+
+Matrix products: default
+BLAS: /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] survival_2.43-3
+
+loaded via a namespace (and not attached):
+[1] compiler_3.5.2  Matrix_1.2-15   tools_3.5.2     yaml_2.2.0      splines_3.5.2  
+[6] grid_3.5.2      lattice_0.20-38
+
+
+## packages in Josh's code and for outcomes: Suppression/ART among closed cohort; Annual HIV incidence; cumulative HIV testing
+> sessionInfo()
+R version 3.5.2 (2018-12-20)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Sierra 10.12.6
+
+Matrix products: default
+BLAS: /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] sandwich_2.5-0      matrixStats_0.54.0  googlesheets_0.3.0  openxlsx_4.1.0     
+ [5] dplyr_0.7.6         SuperLearner_2.0-24 nnls_1.4            survival_2.43-3    
+ [9] data.table_1.11.4   ltmle_1.1-1        
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_0.12.18     rstudioapi_0.7   bindr_0.1.1      magrittr_1.5     splines_3.5.2   
+ [6] tidyselect_0.2.4 lattice_0.20-38  R6_2.2.2         rlang_0.2.2      tools_3.5.2     
+[11] grid_3.5.2       yaml_2.2.0       assertthat_0.2.0 tibble_1.4.2     crayon_1.3.4    
+[16] Matrix_1.2-15    bindrcpp_0.2.2   zip_1.0.0        purrr_0.2.5      glue_1.3.0      
+[21] cellranger_1.1.0 compiler_3.5.2   pillar_1.3.0     zoo_1.8-3        pkgconfig_2.0.2 
+
+
+## Packages in Laura's code - and for outcomes: cumulative HIV incidence, NCD analyses
+> sessionInfo()
+R version 3.5.2 (2018-12-20)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Sierra 10.12.6
+
+Matrix products: default
+BLAS: /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] splines   stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] gam_1.16            foreach_1.4.4       ltmle_1.1-1         SuperLearner_2.0-24
+[5] nnls_1.4           
+
+loaded via a namespace (and not attached):
+ [1] MASS_7.3-51.1      compiler_3.5.2     Matrix_1.2-15      tools_3.5.2       
+ [5] yaml_2.2.0         codetools_0.2-15   grid_3.5.2         iterators_1.0.10  
+ [9] speedglm_0.3-2     matrixStats_0.54.0 lattice_0.20-38  
+
+## Packages in Laura's code - and for outcomes: population-level viral suppression & 90/90/90
+> sessionInfo()
+R version 3.4.4 (2018-03-15)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Sierra 10.12.3
+
+Matrix products: default
+BLAS: /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] splines   stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] gam_1.15            foreach_1.4.4       ltmle_1.0-1         SuperLearner_2.0-23
+[5] nnls_1.4           
+
+loaded via a namespace (and not attached):
+ [1] MASS_7.3-49        compiler_3.4.4     Matrix_1.2-14      tools_3.4.4       
+ [5] codetools_0.2-15   grid_3.4.4         iterators_1.0.9    speedglm_0.3-2    
+ [9] matrixStats_0.53.1 lattice_0.20-35   
