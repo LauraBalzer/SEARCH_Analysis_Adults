@@ -5,7 +5,7 @@
 # jschwab77@berkeley.edu
 #---------------------------
 
-library(sandwich)
+library(geepack)
 rm(list = ls())
 source('Utils.R')
 
@@ -129,13 +129,24 @@ EstIncidenceChange <- function(cur.pop) {
   return(ind.poisson.rate.results)
 }
 
-EstIncidenceChangePoisson <- function(df, id, offset1, adjust) {
-  stopifnot(setequal(names(df), c("mobile_0", "sex_0", "age_t", "A", "Y_next")))
-  m <- glm(Y_next ~ mobile_0 + sex_0 + age_t + A + offset(offset1), family=poisson(link="log"), data=data.frame(df, offset1))
+EstIncidenceChangePoisson <- function(df, id, offset1) {
+  sort.index <- order(id)
+  df <- df[sort.index, ]
+  id <- id[sort.index]
+  offset1 <- offset1[sort.index]
   
+  stopifnot(setequal(names(df), c("mobile_0", "sex_0", "age_t", "A", "Y_next")))
+  
+  if (length(unique(df$sex_0)) == 1) {
+    f <- Y_next ~ mobile_0 + age_t + A + offset(offset1)
+  } else {
+    f <- Y_next ~ mobile_0 + sex_0 + age_t + A + offset(offset1)
+  }
+  
+  df1 <- data.frame(df, offset1, iid1 = as.integer(factor(id))) 
+  m <- geeglm(f, family=poisson(link="log"), data=df1, id = iid1, corstr = "exchangeable")
+  s <- summary(m)$coefficients["A", "Std.err"]
   est <- coef(m)["A"] 
-  v <- vcovCL(m, cluster=id) #same as gee with "exchangeable"
-  s <- sqrt(diag(v))["A"]
   
   stopifnot(uniqueN(id) > 100) #use t dist if smaller
   x <-  qnorm(0.975) * s
