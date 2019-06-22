@@ -60,14 +60,24 @@ Run.HIV<- function(subgroup, SL.library){
   adj.inc_unadj.effect <- Stage2(goal=goal, weighting=weighting, data.input= data.temp, 
                                  outcome='Y', clust.adj=NULL,  do.data.adapt=F,  break.match= F)
   
+  # crude incidence rate
+  data.temp <- reformat.stage2(data, outcome='IR', indv='PY.tot')
+  weighting <-  'indv'
+  
+  crude.inc.rate <- Stage2(goal=goal, weighting=weighting, data.input= data.temp, 
+                           outcome='Y', clust.adj=NULL, do.data.adapt=F,  break.match= F)
+  
+  
   est <- data.frame(rbind(unadj.inc_adj.effect, unadj.inc_unadj.effect, 
-                          adj.inc_adj.effect, adj.inc_unadj.effect))
+                          adj.inc_adj.effect, adj.inc_unadj.effect,
+                          crude.inc.rate))
   
   
   rownames(est) <-  c('Unadj-Incidence; Adj-Effect',
                       'Unadj-Incidence; Unadj-Effect',
                       'Adj-Incidence; Adj-effect',
-                      'Adj-Incidence; Unadj-Effect')
+                      'Adj-Incidence; Unadj-Effect',
+                      'Crude Incidence Rate')
   
   
   rownames(data) <- data$community_name
